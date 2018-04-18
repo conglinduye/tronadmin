@@ -21,3 +21,10 @@ SQLDB_DSN_MASTER = {
     "host": "",
     "port": ""
 }
+# 系统数据库配置 end
+
+# Log 配置 begin
+LOGGING_LEVEL = 'debug'
+LOGGING_LOOP_CHECK_TIME = 60
+CURRENT_LOGGING_LEVEL = None
+# Log 配置 end
