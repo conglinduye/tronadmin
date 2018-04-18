@@ -1,7 +1,6 @@
 # !/usr/bin/env python
 # *-* coding:utf-8 *-*
 
-from app.api.v1 import admin
 from flask import Blueprint
 from flask_restful import Api
 
