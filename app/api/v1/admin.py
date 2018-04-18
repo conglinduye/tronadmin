@@ -1,9 +1,9 @@
 # !/usr/bin/env python
 # *-* coding:utf-8 *-*
+from flask_restful import Resource
 
-from app.api import api
 
+class Main(Resource):
 
-@api.route('/index')
-def index():
-    return "hello world"
+    def index(self):
+        return "hello world"

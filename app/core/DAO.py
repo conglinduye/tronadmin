@@ -60,8 +60,7 @@ class DAO(object):
     def query(cls, master=False, columns=None, fetchone=True, orderby=None,
               extra=None, limit=0, offset=0, groupby=0, shard_key=None, table_name=None, shard_id=None, **kwargs):
         query, values = cls.get_query_sql(columns=columns, extra=extra, orderby=orderby, limit=limit,
-                                          offset=offset,
-                                          groupby=groupby, table_name=table_name, **kwargs)
+                                          offset=offset, groupby=groupby, table_name=table_name, **kwargs)
 
         if fetchone:
             if master:
