@@ -5,5 +5,5 @@ from flask_restful import Resource
 
 class Main(Resource):
 
-    def index(self):
+    def get(self):
         return "hello world"
