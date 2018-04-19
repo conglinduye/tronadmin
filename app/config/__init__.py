@@ -11,5 +11,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = ''
+
+    # psql初始化 begin
+    SQLALCHEMY_DATABASE_URI = 'postgresql://tron:tron0909@172.16.100.4:5432/tron'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True  # 若设为True，SQLAlchemy将追踪对象的修改和发送信号；默认是None；
+    # psql初始化 end
+
     SECRET_KEY = ''
