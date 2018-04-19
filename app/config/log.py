@@ -1,12 +1,11 @@
 # !/usr/bin/env python
 # *-* coding:utf-8 *-*
-import os
-
-import sys
 
 import logging
 
 import time
+
+__author__ = "lmr"
 
 
 def init_log():
