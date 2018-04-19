@@ -14,12 +14,16 @@ class Config(object):
 
 # 系统数据库配置 begin
 # postgresql 数据库主库配置
+SQLDB_DSN_MASTER1 = {
+    'w': 'dbname= user= password=0909 host=172.16.100.4',
+    'r': 'dbname= user= password=0909 host=172.16.100.4',
+}
 SQLDB_DSN_MASTER = {
     "database": "",
     "user": "",
-    "password": "",
-    "host": "",
-    "port": ""
+    "password": "0909",
+    "host": "172.16.100.4",
+    "port": "5432"
 }
 # 系统数据库配置 end
 
