@@ -4,7 +4,7 @@
 from flask import Blueprint, render_template, redirect, request
 from flask_restful import Resource
 
-from app.models import TRDapp
+from apps.models import TRDapp
 
 __author__ = "lmr"
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # author:
 
-from app.model.tr_dapp import TRDapp
+from apps.model.tr_dapp import TRDapp
 
 
 class DAPPTest(object):

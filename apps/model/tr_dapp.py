@@ -2,8 +2,8 @@
 # date:2018/04/08
 import datetime
 import random
-import app.config
-from app.core.DAO import DAO
+import apps.config
+from apps.core.DAO import DAO
 __author__ = "lmr"
 
 

@@ -2,8 +2,8 @@
 # *-* coding:utf-8 *-*
 from flask_sqlalchemy import SQLAlchemy
 
-from app import create_app
-from app.config import log
+from apps import create_app
+from apps.config import log
 
 app, db = create_app()
 
