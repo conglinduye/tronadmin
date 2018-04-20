@@ -1,9 +1,12 @@
 # !/usr/bin/env python
 # *-* coding:utf-8 *-*
+# date:2018/04/20
 
 from app import db
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 from sqlalchemy.sql import func
+
+__author__ = "lmr"
 
 
 class TREvents(db.Model):

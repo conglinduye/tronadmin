@@ -1,9 +1,12 @@
 # !/usr/bin/env python
 # *-* coding:utf-8 *-*
+# date:2018/04/20
 import datetime
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
 from app import db
+
+__author__ = "lmr"
 
 
 class TRDapp(db.Model):
@@ -30,4 +33,4 @@ class TRDapp(db.Model):
     extra = db.Column(db.String())
     update_time = db.Column(TIMESTAMP, default=datetime.datetime, nullable=False)
     create_time = db.Column(TIMESTAMP, default=datetime.datetime, nullable=False)  # 这种方法其实这种方法根本就没有在数据库里面设置默认值，
-# 只是使用了SQLAlchemy Model类提交数据时添加上去的值，并不适合需要取数据库所有服务器时间的场合。
+    # 只是使用了SQLAlchemy Model类提交数据时添加上去的值，并不适合需要取数据库所有服务器时间的场合。
