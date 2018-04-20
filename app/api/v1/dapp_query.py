@@ -12,10 +12,11 @@ __author__ = "lmr"
 @api.route('/dapp_search', methods=['GET','POST'])
 def query():
     if request.method == 'POST':
+
         dapp_id = request.form.get("did", 0)
+
         dapps = TRDapp.query.filter_by(dapp_id=dapp_id).all()
         content = great_date(dapps)
-        print content
         return json.dumps({"data": content}, ensure_ascii=False)
         # return {"data": content}
 
