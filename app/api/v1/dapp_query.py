@@ -1,7 +1,7 @@
 # *-* coding:utf-8 *-*
 # date:2018/04/19
-
-from flask import Blueprint, render_template, redirect, request
+import flask
+from flask import request
 from app.api import api
 from app.models import TRDapp
 import json
@@ -9,16 +9,17 @@ import json
 __author__ = "lmr"
 
 
-@api.route('/dapp_search', methods=['GET','POST'])
+@api.route('/dapp_search', methods=['GET', 'POST'])
 def query():
     if request.method == 'POST':
 
         dapp_id = request.form.get("did", 0)
-
-        dapps = TRDapp.query.filter_by(dapp_id=dapp_id).all()
+        delete = request.form.get("delete", 0)
+        dapp_name = request.form.get("dapp_name")
+        dapps = TRDapp.query_filter(dapp_id=dapp_id, delete=delete, dapp_name=dapp_name)
         content = great_date(dapps)
-        return json.dumps({"data": content}, ensure_ascii=False)
-        # return {"data": content}
+        # return json.dumps({"data": content}, ensure_ascii=False)
+        return flask.jsonify({"data": content})
 
 
 def great_date(dapps):

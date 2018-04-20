@@ -30,7 +30,9 @@ class TREvents(db.Model):
     social_link2 = db.Column(db.string())
     sponsors = db.Column(db.string())
     review = db.Column(db.Integer, default=0)
-    delete = db.Column(db.Boolean, default=0)
+    delete = db.Column(db.Integer, default=0)
     extra = db.Column(db.string())
     update_time = db.Clumn(TIMESTAMP, server_default=func.now(), nullable=False)
     create_time = db.Clumn(TIMESTAMP, server_default=func.now(), nullable=False)  # #注意这里是server_default
+
+    # 在modules中写好查询条件，使用时直接调用
