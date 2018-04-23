@@ -3,7 +3,7 @@
 import flask
 from flask import request
 from app.api import api
-from app.models import TRDapp
+from app.model.tr_dapp import TRDapp
 import json
 
 __author__ = "lmr"

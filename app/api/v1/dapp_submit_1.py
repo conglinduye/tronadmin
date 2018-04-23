@@ -7,13 +7,14 @@ import flask
 from flask_restful import Resource
 from flask import request
 
+from app.config.base import GreenResource
 from app.model import types
-from app.models import TRDapp
+from app.model.tr_dapp import TRDapp
 
 __author__ = "lmr"
 
 
-class DappSubmit1(Resource):
+class DappSubmit1(GreenResource):
 
     def post(self):
         '''

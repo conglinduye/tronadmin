@@ -8,7 +8,7 @@ from flask import request
 
 from app.api import api
 from app.model import types
-from app.models import TRDapp
+from app.model.tr_dapp import TRDapp
 
 __author__ = "lmr"
 

@@ -1,13 +1,11 @@
 # coding=utf-8
-import json
-import urllib2
 import urllib
+import urllib2
 
 __author__ = 'lmr'
 
 
 class TronData(object):
-
 
     def send_msg(self):
         # self.SMS_URL = 'https://tron.network/api/v1/dapp_event/review_submit'

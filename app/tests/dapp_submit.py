@@ -1,7 +1,6 @@
 # coding=utf-8
-import json
-import urllib2
 import urllib
+import urllib2
 
 __author__ = 'lmr'
 
@@ -14,8 +13,8 @@ class TroData(object):
         self.params['dapp_name'] = "flask"
         self.params['author'] = "linmaorong"
         # self.params['dapp_email'] = "123456@qq.com"
-        self.params['brief'] = "this is a flask test"
-        # self.params['description'] = "this is a flask test, holp success!!!"
+        self.params['brief'] = "this is a flask tests"
+        # self.params['description'] = "this is a flask tests, holp success!!!"
         # self.params['wallet_address'] = "ox2sd34gfdg34tgdgf23gdft24fdsg3g2"
         # self.params['license'] = "Dr2Dsf34FFEA"
         self.params['status'] = 2

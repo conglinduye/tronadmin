@@ -1,0 +1,30 @@
+{
+  "host": "http://localhost:5000",
+  "auth":0,
+   "env": {
+
+  },
+  "tests": [
+    {
+      "api": "/api/v1/dapp_search",
+      "method": "POST",
+      "params": {
+        "did":"27695316",
+        "delete": 0,
+        "dapp_name": "SAMYtest"
+      },
+      "except": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "maximum": 0
+          }
+        },
+        "required": [
+          "code"
+        ]
+      }
+    }
+  ]
+}

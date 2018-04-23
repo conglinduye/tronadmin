@@ -13,7 +13,7 @@ class Config(object):
     DEBUG = True
 
     # psql初始化 begin
-    SQLALCHEMY_DATABASE_URI = 'postgresql://tron:tron0909@172.16.100.4:5432/tron'
+    SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE
     SQLALCHEMY_TRACK_MODIFICATIONS = True  # 若设为True，SQLAlchemy将追踪对象的修改和发送信号；默认是None；
     # psql初始化 end
 
