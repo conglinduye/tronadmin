@@ -1,6 +1,7 @@
 # !/usr/bin/env python
 # *-* coding:utf-8 *-*
 
+import random
 from functools import wraps
 from M2Crypto.EVP import Cipher
 from app.model.tr_admin_user_token import TRAdminToken
