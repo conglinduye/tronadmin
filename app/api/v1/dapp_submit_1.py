@@ -7,7 +7,7 @@ import flask
 from flask_restful import Resource
 from flask import request
 
-from app.config.base import GreenResource
+from app.config.base import GreenResource, deco
 from app.model import types
 from app.model.tr_dapp import TRDapp
 

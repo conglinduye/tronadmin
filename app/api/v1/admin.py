@@ -11,7 +11,6 @@ def index():
     # return {"data": ['asdf', 'dsf']}
     d = {'data': ['maocai', '418']}
     return flask.jsonify(d)
-    #return "hello world"
 
 
 class Index1(Resource):

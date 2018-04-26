@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # author:lewsan
-import urllib
-
-from apidriver import APIDriver
-
-import time
-import random
+import copy
 import hashlib
 import json
+import random
+import time
+import urllib
+
 import jsonschema
-import copy
+
+from apidriver import APIDriver
 
 
 class AUTH_LEVEL(object):

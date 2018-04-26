@@ -1,0 +1,31 @@
+{
+  "host": "http://localhost:5000",
+  "auth":0,
+   "env": {
+
+  },
+  "tests": [
+    {
+      "api": "/api/v1/dapp_submit1",
+      "method": "POST",
+      "params": {
+        "dapp_name":"flask",
+        "author": "linmaorong",
+        "brief": "this is a test",
+        "status": 2
+      },
+      "except": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "maximum": 0
+          }
+        },
+        "required": [
+          "code"
+        ]
+      }
+    }
+  ]
+}

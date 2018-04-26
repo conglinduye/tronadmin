@@ -1,0 +1,32 @@
+{
+  "host": "http://39.107.78.139:5000",
+  "auth":0,
+   "env": {
+
+  },
+  "tests": [
+    {
+      "api": "/api/v1/accounts/login",
+      "method": "POST",
+      "params": {
+        "create_name": "admin",
+        "name": "linmaorong",
+        "email": "1234567@qq.com",
+        "password": "e10adc3949ba59abbe56e057f20f883e",
+        "promission": 1
+      },
+      "except": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "number",
+            "maximum": 0
+          }
+        },
+        "required": [
+          "code"
+        ]
+      }
+    }
+  ]
+}

@@ -36,7 +36,7 @@ OPTIONS:
     sys.exit(1)
 
 
-TESTPATH = '.'
+TESTPATH = 'test/tests'
 
 
 def work():

@@ -1,17 +1,16 @@
 {
-  "host": "http://localhost:5000",
+  "host": "http://39.107.78.139:5000",
   "auth":0,
    "env": {
 
   },
   "tests": [
     {
-      "api": "/api/v1/dapp_search",
+      "api": "/api/v1/accounts/signup",
       "method": "POST",
       "params": {
-        "did":"27695316",
-        "delete": 0,
-        "dapp_name": "SAMYtest"
+        "email": "1234567@qq.com",
+        "password": "e10adc3949ba59abbe56e057f20f883e"
       },
       "except": {
         "type": "object",

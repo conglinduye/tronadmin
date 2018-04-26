@@ -62,3 +62,15 @@ class USER_STATE(object):
     PENDING = 0
     NORMAL = 1
     FORBIDDEN = 2
+
+
+class AUTH_LEVEL(object):
+    NO_AUTH = 0
+    NORMAL = 1
+    STRICT = 2
+
+
+class SESSION_AUTH_LEVEL(object):
+    NO_AUTH = 0
+    INIT = 1
+    NORMAL = 2

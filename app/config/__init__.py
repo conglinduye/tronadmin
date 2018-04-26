@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # author:lmr
 
-from default import *
+from configure import *
 
 import os
 

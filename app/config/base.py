@@ -8,6 +8,8 @@ import traceback
 
 import ujson
 
+from flask import request
+
 from app import config
 from flask_restful import Resource
 
@@ -50,55 +52,26 @@ def list_params(params, int_value=False):
 
 
 class GreenResource(Resource):
-    def _handle_request(self, handler, request):
+    FREQUENTLY_CHECK_TIME = None
+    FREQUENTLY_CHECK_KEYS = []
+
+    def post(self):
+        pass
+
+    def handle_request(self, handler, request):
         try:
             start_time = time.time()
-            try:
-                # 检查是否调用频繁
-                if not self._check_frequently(request):
-                    resp = {
-                        'code': types.RESPONSE_CODE.OPERATE_FREQUENTLY,
-                        'msg': types.RESPONSE_MSG.OPERATE_FREQUENTLY,
-                    }
-                elif not self.verify_session(request):
-                    resp = {
-                        'code': types.RESPONSE_CODE.SESSION_EXPIRED,
-                        'msg': '请重新登录'
-                    }
+            '''
+            # request.user = request_user
 
-                else:
-                    result, request_user = self._verify_auth(request)
-                    if result:
-                        # logging.debug('got result from verify_auth')
-
-                        # 检测用户是否封禁
-                        if request_user and request_user.state == types.USER_STATE.FORBIDDEN:
-                            resp = json.dumps({
-                                'code': types.RESPONSE_CODE.DATA_NOT_AVAILABLE,
-                                'msg': '账号已封禁'
-                            })
-                        else:
-                            request.user = request_user
-
-                            # add client version to request
-                            cli_ver = arg_named(request, 'version', 0)
-                            if not cli_ver:
-                                cli_ver = config.APP_VERSION_DEFAULT
-                            request.cli_ver = cli_ver
-                            resp = handler(request)
-                    else:
-                        resp = {'code': types.RESPONSE_CODE.USER_AUTH_ERROR,
-                                'msg': types.RESPONSE_MSG.USER_AUTH_ERROR}
-                        logging.info('auth_error. path:%s args:%s ',
-                                     request.path, request.args)
-
-            except Exception, e:
-                logging.info('api_error 1. path:%s args:%s ',
-                             request.path, request.args)
-                logging.error(traceback.format_exc())
-
-                resp = {'code': types.RESPONSE_CODE.OPERATE_ERROR,
-                        'msg': types.RESPONSE_MSG.OPERATE_ERROR}
+            # add client version to request
+            
+            cli_ver = arg_named(request, 'version', 0)
+            if not cli_ver:
+                cli_ver = config.APP_VERSION_DEFAULT
+            request.cli_ver = cli_ver
+            '''
+            resp = handler(request)
 
             # response code
             resp_code = types.RESPONSE_CODE.SUCCESS
@@ -158,3 +131,146 @@ class GreenResource(Resource):
             logging.info('api_error 2. path:%s args:%s e:%s',
                          request.path, request.args, e)
             logging.error(traceback.format_exc())
+
+    def handle_request1(self, handler, request):
+        try:
+            start_time = time.time()
+            '''
+            # request.user = request_user
+
+            # add client version to request
+
+            cli_ver = arg_named(request, 'version', 0)
+            if not cli_ver:
+                cli_ver = config.APP_VERSION_DEFAULT
+            request.cli_ver = cli_ver
+            '''
+            resp = handler(request)
+
+            # response code
+            resp_code = types.RESPONSE_CODE.SUCCESS
+
+            # 添加时间戳
+            if isinstance(resp, dict):
+                resp['current_time'] = time.time()
+                resp_code = resp.get('code', types.RESPONSE_CODE.SUCCESS)
+
+            # 302
+            if resp_code == types.RESPONSE_CODE.RESPONSE_FOUND:
+                url = resp.get('msg') or config.OFFICIAL_WEB_URL
+                # logging.info('302_redirect path:%s args:%s url:%s' % (request.path, request.args, url))
+                request.redirect(url)
+                request.finish()
+                return
+
+            # json打包
+            if not isinstance(resp, basestring):
+                try:
+                    resp = ujson.dumps(resp)
+                except:
+                    try:
+                        resp = json.dumps(resp)
+                    except:
+                        logging.info('dumps error! resp:%s' % resp)
+                        resp = str(resp)
+
+            cb = arg_named(request, 'callback')
+            if cb:
+                resp = '%s(%s)' % (cb, resp)
+
+            request.setHeader('Content-Type', 'text/json; charset=utf-8')
+            # request.setHeader('Access-Control-Allow-Origin', '*')    # 2018-
+            request.write(resp)
+
+            try:
+                request.finish()
+            except:
+                pass
+
+            end_time = time.time()
+            cost_time = end_time - start_time
+            if cost_time > config.API_SLOW_LOG_TIME:
+                if request.path in ['/util/status']:
+                    pass
+                else:
+                    if hasattr(config, 'API_LOG_ARGS_FLAG'):
+                        logging.info(
+                            'path:%s cost %.2f seconds args:%s, ip:%s, resp: %s',
+                            request.path, cost_time, request.args, get_http_real_ip(request), resp)
+                    else:
+                        logging.info(
+                            'path:%s cost %.2f seconds args:%s ip:%s resp_code:%s, resp_size:%s',
+                            request.path, cost_time, request.args, get_http_real_ip(request), resp_code, len(resp))
+        except Exception, e:
+            logging.info('api_error 2. path:%s args:%s e:%s',
+                         request.path, request.args, e)
+            logging.error(traceback.format_exc())
+
+
+def deco(func):
+    def handle_request(*args, **kwargs):
+        try:
+
+            start_time = time.time()
+            resp = {}
+            func(*args, **kwargs)
+            # response code
+            resp_code = types.RESPONSE_CODE.SUCCESS
+
+            # 添加时间戳
+            if isinstance(resp, dict):
+                resp['current_time'] = time.time()
+                resp_code = resp.get('code', types.RESPONSE_CODE.SUCCESS)
+
+            # 302
+            if resp_code == types.RESPONSE_CODE.RESPONSE_FOUND:
+                url = resp.get('msg') or config.OFFICIAL_WEB_URL
+                # logging.info('302_redirect path:%s args:%s url:%s' % (request.path, request.args, url))
+                request.redirect(url)
+                request.finish()
+                return
+
+            # json打包
+            if not isinstance(resp, basestring):
+                try:
+                    resp = ujson.dumps(resp)
+                except:
+                    try:
+                        resp = json.dumps(resp)
+                    except:
+                        logging.info('dumps error! resp:%s' % resp)
+                        resp = str(resp)
+
+            cb = arg_named(request, 'callback')
+            if cb:
+                resp = '%s(%s)' % (cb, resp)
+
+            request.setHeader('Content-Type', 'text/json; charset=utf-8')
+            # request.setHeader('Access-Control-Allow-Origin', '*')    # 2018-
+            request.write(resp)
+
+            try:
+                request.finish()
+            except:
+                pass
+
+            end_time = time.time()
+            cost_time = end_time - start_time
+            if cost_time > config.API_SLOW_LOG_TIME:
+                if request.path in ['/util/status']:
+                    pass
+                else:
+                    if hasattr(config, 'API_LOG_ARGS_FLAG'):
+                        logging.info(
+                            'path:%s cost %.2f seconds args:%s, ip:%s, resp: %s',
+                            request.path, cost_time, request.args, get_http_real_ip(request), resp)
+                    else:
+                        logging.info(
+                            'path:%s cost %.2f seconds args:%s ip:%s resp_code:%s, resp_size:%s',
+                            request.path, cost_time, request.args, get_http_real_ip(request), resp_code, len(resp))
+        except Exception, e:
+            logging.info('api_error 2. path:%s args:%s e:%s',
+                         request.path, request.args, e)
+            logging.error(traceback.format_exc())
+
+    return handle_request
