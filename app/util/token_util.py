@@ -38,4 +38,5 @@ def token_required(func)
             return jsonify({'status': 'fail', 'msg': 'useless token'}), 403
         elif token.expires < time.time():
             return jsonify({'status': 'fail', 'msg': 'expired token'}), 403
+        return func(*args, **kwargs)
     return wrapper
