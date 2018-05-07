@@ -24,4 +24,6 @@ BUCKET_NAME = 'app-image'      # 七牛空间名
 
 DOMAIN_PREFIX = "http://p7476x5w6.bkt.clouddn.com/"   # 域名
 # END
+COOKIE_NAME = 'dapp_accounts_token' #token名字
+TLL = 30*60 #token过期时间
 

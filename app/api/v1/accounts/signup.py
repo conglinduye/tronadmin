@@ -10,6 +10,7 @@ from app.func.password import Password
 from app.model import types
 from app.model.tr_admin_users import TRAdminUsers
 from app.util.iputil import get_http_real_ip
+from app.util.token_util import generate, COOKIE_NAME
 
 __author__ = "lmr"
 
@@ -43,12 +44,10 @@ class SignUp(GreenResource):
         user.signin_time = datetime.datetime.now()
         user.ip = ip
         db.session.commit()
-
-        return flask.jsonify({
-            'code': types.RESPONSE_CODE.SUCCESS,
-            'data': User.build_data(user)
-        })
-
+        token = generate(user)	
+        resp = flask.jsonify(code=types.RESPONSE_CODE.SUCCESS, data=User.build_data(user))
+        resp.set_cookie(COOKIE_NAME, value=token.token, expires=token.expires)
+        return resp
 
 class User(object):
 
