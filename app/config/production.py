@@ -7,7 +7,7 @@ from default import *
 OFFICIAL_WEB_URL = 'https://tron.network'
 SESSION_TIMEOUT = 900
 
-SQLALCHEMY_DATABASE = 'postgresql://tron:tRon170909@pg.master.primary:5432/tron'
+SQLALCHEMY_DATABASE = ''
 
 # 七牛配置
 ACCESS_KEY = 'J_O99Ra1HgkY4nKD2dMSJbox1Kc1_f80EMhbBxjX'    # 个人中心->密匙管理->AK

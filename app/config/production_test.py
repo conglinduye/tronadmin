@@ -12,7 +12,7 @@ SESSION_TIMEOUT = 900
 
 # 系统数据库配置 begin
 # postgresql 数据库主库配置
-SQLALCHEMY_DATABASE = 'postgresql://tron:tron0909@172.16.100.4:5432/tron'
+SQLALCHEMY_DATABASE = ''
 # 系统数据库配置 end
 
 # 七牛配置
